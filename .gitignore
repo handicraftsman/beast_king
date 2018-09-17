@@ -1,0 +1,7 @@
+/.particlepm
+/dist
+/*.so
+/*/*.so
+/*.o
+/*/*.o
+/build
