@@ -1,6 +1,7 @@
 #include "server_threaded.hpp"
 #include "log.hpp"
 
+#include <chrono>
 #include <iostream>
 #include <regex>
 #include <stdexcept>
@@ -45,7 +46,30 @@ void BeastKing::ServerThreaded::runner() {
     std::thread thr([this, ioc, sock] () {
       try {
         BeastKing::ContextPtr ctx(new BeastKing::Context(ioc, sock));
+
+        using tp_t = std::chrono::time_point<std::chrono::system_clock>;
+        using dr_t = std::chrono::duration<std::chrono::system_clock>;
+
+        tp_t t1 = std::chrono::system_clock::now();
+
         app->handle(ctx);
+
+        tp_t t2 = std::chrono::system_clock::now();
+
+        auto d = t2 - t1;
+
+        auto dv = std::chrono::duration_cast<std::chrono::milliseconds>(d);
+
+        BOOST_LOG(app->logger)
+          << "> "
+          << ctx->req->method()
+          << " "
+          << ctx->url->pathname()
+          << " "
+          << ctx->res->result_int()
+          << " "
+          << dv.count()
+          << "ms";
       } catch (const std::exception& exc) {
         char* exc_name = abi::__cxa_demangle(typeid(exc).name(), nullptr, nullptr, nullptr);
         std::cout << exc_name << " - " << exc.what() << std::endl;

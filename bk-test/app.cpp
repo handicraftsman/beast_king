@@ -12,6 +12,7 @@ MyApp::MyApp() {
   auto r = new BeastKing::SimpleRouter();
 
   r->get("^.*$", [&] (BeastKing::ContextPtr ctx, std::smatch m) {
+    ctx->res->result(http::status::ok);
     std::string res = "Hello, World!";
     ctx->res->body() = res;
     ctx->res->content_length(res.size());

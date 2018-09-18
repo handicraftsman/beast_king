@@ -31,7 +31,7 @@ void BeastKing::SimpleRouter::handle(BeastKing::ContextPtr ctx) {
 
     if ((m = std::smatch {}, std::regex_match(pathname, m, rgx))) {
       if (premake) {
-        ctx->res = std::shared_ptr<res_t>(new res_t(http::status::bad_request, ctx->req->version()));
+        ctx->res = std::shared_ptr<res_t>(new res_t(http::status::ok, ctx->req->version()));
         ctx->res->set(http::field::server, sname);
         ctx->res->set(http::field::content_type, "text/plain");
         ctx->res->keep_alive(ctx->req->keep_alive());
