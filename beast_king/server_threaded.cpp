@@ -1,4 +1,5 @@
 #include "server_threaded.hpp"
+#include "log.hpp"
 
 #include <iostream>
 #include <regex>
@@ -36,7 +37,7 @@ void BeastKing::ServerThreaded::runner() {
     )
   );
 
-  std::cerr << "Serving on " << host << ":" << port << std::endl;
+  BOOST_LOG(app->logger) << "Serving on " << host << ":" << port;
 
   for (;;) {
     std::shared_ptr<tcp::socket> sock(new tcp::socket(*ioc.get()));

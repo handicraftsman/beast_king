@@ -12,6 +12,11 @@ PPM_PACKAGE(p) {
   p->license(PPM::License("MIT", "https://github.com/handicraftsman/beast_king/blob/master/LICENSE.txt"));
 
   PPM::libs.insert("boost_system");
+  PPM::libs.insert("boost_log");
+  PPM::libs.insert("boost_log_setup");
+  PPM::libs.insert("boost_thread");
+  PPM::libs.insert("boost_filesystem");
+  PPM::libs.insert("boost_regex");
   PPM::libs.insert("skyr");
 
   PPM::TargetPtr lib = p->library("beast_king");
@@ -28,6 +33,9 @@ PPM_PACKAGE(p) {
       ("-L" + PPM::dist_dir),
 
       "-lboost_system",
+      "-lboost_log",
+      "-lboost_log_setup",
+      "-lboost_thread",
       "-lskyr",
 
       ("-I" + p->pkg_dir())
@@ -45,6 +53,7 @@ PPM_PACKAGE(p) {
 
       "-lbeast_king",
       "-lboost_system",
+      "-lboost_thread",
       
       ("-I" + p->pkg_dir()),
 
@@ -52,19 +61,21 @@ PPM_PACKAGE(p) {
     })
   );
 
-
-
   if (PPM::dev) {
     PPM::TargetPtr exe = p->executable("bk-test");
     exe->cpp("gnu++17");
     exe->cpp_files({
-      "bk-test/main.cpp"
+      "bk-test/main.cpp",
+      "bk-test/app.cpp"
     });
     exe->cpp_flags(
       flagcat({
         ("-L" + PPM::dist_dir),
 
         "-lboost_system",
+        "-lboost_log",
+        "-lboost_log_setup",
+        "-lboost_thread",
         "-lbeast_king",
         "-lbeast_king_server_threaded",
 

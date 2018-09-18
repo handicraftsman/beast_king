@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "log.hpp"
 
 namespace BeastKing {
   class App;
@@ -11,6 +12,7 @@ namespace BeastKing {
 #include "router.hpp"
 
 namespace BeastKing {
+  namespace src = boost::log::sources;
 
   void fail(boost::system::error_code ec, char const* what);
 
@@ -20,6 +22,7 @@ namespace BeastKing {
 
     void handle(ContextPtr ctx);
 
+    boost::log::sources::logger logger;
     RouterPtr router;
   };
 

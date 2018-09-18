@@ -12,7 +12,9 @@ using     tcp  = boost::asio::ip::tcp;
 using req_t = boost::beast::http::request<boost::beast::http::string_body>;
 using res_t = boost::beast::http::response<boost::beast::http::string_body>;
 
-BeastKing::App::App() {}
+BeastKing::App::App() {
+  BOOST_LOG(logger) << "Hello, World!";
+}
 
 void BeastKing::fail(boost::system::error_code ec, char const* what) {
   throw std::runtime_error(std::string(what) + ": " + ec.message());
