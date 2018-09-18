@@ -7,7 +7,7 @@ using namespace PPM::Utils;
 PPM_PACKAGE(p) {
   p->name("beast_king");
   p->version(PPM::Version(BEAST_KING_VERSION));
-  p->description("A king for Beast applications");
+  p->description("A web framework based on Boost.Beast");
   p->github(PPM::GitHub("handicraftsman", "beast_king"));
   p->license(PPM::License("MIT", "https://github.com/handicraftsman/beast_king/blob/master/LICENSE.txt"));
 
